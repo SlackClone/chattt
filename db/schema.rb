@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_08_18_021245) do
+ActiveRecord::Schema.define(version: 2020_08_27_142846) do
 
   create_table "channels", force: :cascade do |t|
     t.string "name", null: false
@@ -38,7 +38,27 @@ ActiveRecord::Schema.define(version: 2020_08_18_021245) do
     t.index ["account"], name: "index_users_on_account", unique: true
   end
 
+  create_table "users_workspaces", force: :cascade do |t|
+    t.string "role"
+    t.integer "user_id", null: false
+    t.integer "workspace_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_users_workspaces_on_user_id"
+    t.index ["workspace_id"], name: "index_users_workspaces_on_workspace_id"
+  end
+
+  create_table "workspaces", force: :cascade do |t|
+    t.string "name"
+    t.integer "owner"
+    t.datetime "deleted_at"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   add_foreign_key "channels", "users"
   add_foreign_key "messages", "channels"
   add_foreign_key "messages", "users"
+  add_foreign_key "users_workspaces", "users"
+  add_foreign_key "users_workspaces", "workspaces"
 end

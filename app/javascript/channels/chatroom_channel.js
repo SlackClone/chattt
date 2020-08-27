@@ -23,8 +23,8 @@ document.addEventListener('turbolinks:load', () => {
       newMsg.innerHTML = data.message
       msgBox.insertAdjacentElement("afterbegin", newMsg)
       document.forms[0].reset()
+      console.log(data.message)
     }
   });
-
 })
 
